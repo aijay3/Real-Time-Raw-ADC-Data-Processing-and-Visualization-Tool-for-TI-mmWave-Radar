@@ -143,80 +143,36 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 
 *   **`coordinate_transforms.py`:** A utility module that provides functions for converting polar coordinates (range and angle) to Cartesian coordinates (x and z) for visualization.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## System Architecture
-
-This tool is organized as a multi-threaded, modular radar processing system. It enables real-time data acquisition, signal processing, and visualization of raw ADC data streamed from TI mmWave radar sensors via the DCA1000EVM.
-
-1.  **Launcher (`launcher.py`):** The main entry point of the system. It provides a graphical user interface (GUI) for the user to select and launch one of the three available radar processing applications.
-
-2.  **Radar Configuration:**
-    *   **Config File (`.cfg`):** A text file containing the parameters for configuring the mmWave radar sensor (e.g., chirp settings, frame rate).
-    *   **`SerialConfig` Module:** This module reads the configuration file and sends the commands to the radar sensor over a serial (COM) port to initialize it.
-
-3.  **Data Acquisition:**
-    *   **mmWave Radar Sensor:** The hardware that transmits radar signals and receives the echoes.
-    *   **FPGA:** A Field-Programmable Gate Array that performs initial low-level processing and packetizes the raw ADC data.
-    *   **`UdpListener`:** A dedicated thread that listens for UDP packets from the FPGA on a specific network port.
-    *   **Binary Data Queue:** The raw data from the `UdpListener` is placed into this shared queue to decouple data acquisition from data processing.
-
-4.  **Data Processing Pipelines:** Each application has its own data processing pipeline that runs in a separate thread.
-
-    *   **Range Profile:**
-        *   **`DataProcessor`:** Consumes data from the binary queue.
-        *   **1D FFT:** A Fast Fourier Transform is applied to determine the range of detected objects.
-        *   **CFAR Detection:** Constant False Alarm Rate (CFAR) algorithm is used to detect peaks (objects) in the range profile while maintaining a constant false alarm rate.
-        *   **Range Profile Queue:** The processed data (range profile and detected points) is placed in this queue for the GUI to consume.
-        *   **GUI:** Visualizes the 1D range profile.
-
-    *   **Range Doppler:**
-        *   **`DataProcessor`:** Consumes data from the binary queue.
-        *   **2D FFT:** A 2D FFT is performed to compute the Range-Doppler map, which provides both range and velocity information about objects.
-        *   **2D CFAR Detection:** A 2D version of the CFAR algorithm is applied to the Range-Doppler map to detect objects.
-        *   **Range Doppler Queue:** The processed Range-Doppler map and detected points are sent to this queue.
-        *   **GUI:** Displays the 2D Range-Doppler heatmap.
-
-    *   **Range Angle:**
-        *   **`DataProcessor`:** Consumes data from the binary queue.
-        *   **3D FFT:** A 3D FFT is performed. The first two dimensions compute the Range-Doppler map, and the third dimension (across the virtual antenna array) is used to estimate the angle of arrival (azimuth) of the detected objects.
-        *   **2D CFAR Detection:** CFAR is applied to the Range-Doppler map before angle estimation.
-        *   **Range Angle Queue:** The resulting Range-Angle map and detected points are placed in this queue.
-        *   **GUI:** Displays a 2D heatmap of the objects' spatial locations (Range vs. Angle).
-
 ### 🔑 Summary
 
 - 🚀 **Multithreaded** architecture ensures smooth GUI performance.
 - 🧩 **Modular** structure allows easy extension or modification.
 - 🔌 **Decoupled pipelines** make real-time processing feasible.
 - 🧠 Suitable for developers, researchers, and educators working on mmWave radar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
