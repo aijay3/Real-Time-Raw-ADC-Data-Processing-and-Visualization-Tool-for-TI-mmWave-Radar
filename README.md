@@ -66,57 +66,40 @@ This project addresses those limitations by providing:
 
 This tool is organized as a multi-threaded, modular radar processing system. It enables real-time data acquisition, signal processing, and visualization of raw ADC data streamed from TI mmWave radar sensors via the DCA1000EVM.
 
-The architecture consists of four main components:
+1.  **Launcher (`launcher.py`):** The main entry point of the system. It provides a graphical user interface (GUI) for the user to select and launch one of the three available radar processing applications.
 
----
+2.  **Radar Configuration:**
+    *   **Config File (`.cfg`):** A text file containing the parameters for configuring the mmWave radar sensor (e.g., chirp settings, frame rate).
+    *   **`SerialConfig` Module:** This module reads the configuration file and sends the commands to the radar sensor over a serial (COM) port to initialize it.
 
-### 1. **Launcher (`launcher.py`)**
-The main entry point of the system. It provides a graphical user interface (GUI) that allows users to select and launch one of the three radar processing applications: **Range Profile**, **Range Doppler**, or **Range Angle**.
+3.  **Data Acquisition:**
+    *   **mmWave Radar Sensor:** The hardware that transmits radar signals and receives the echoes.
+    *   **FPGA:** A Field-Programmable Gate Array that performs initial low-level processing and packetizes the raw ADC data.
+    *   **`UdpListener`:** A dedicated thread that listens for UDP packets from the FPGA on a specific network port.
+    *   **Binary Data Queue:** The raw data from the `UdpListener` is placed into this shared queue to decouple data acquisition from data processing.
 
----
+4.  **Data Processing Pipelines:** Each application has its own data processing pipeline that runs in a separate thread.
 
-### 2. **Radar Configuration**
+    *   **Range Profile:**
+        *   **`DataProcessor`:** Consumes data from the binary queue.
+        *   **1D FFT:** A Fast Fourier Transform is applied to determine the range of detected objects.
+        *   **CFAR Detection:** Constant False Alarm Rate (CFAR) algorithm is used to detect peaks (objects) in the range profile while maintaining a constant false alarm rate.
+        *   **Range Profile Queue:** The processed data (range profile and detected points) is placed in this queue for the GUI to consume.
+        *   **GUI:** Visualizes the 1D range profile.
 
-- **Config File (`.cfg`)**: A text file containing radar parameters (e.g., chirp settings, sampling rate, frame duration).
-- **`SerialConfig` Module**: Reads the `.cfg` file and sends commands via UART (serial port) to configure the radar sensor.
+    *   **Range Doppler:**
+        *   **`DataProcessor`:** Consumes data from the binary queue.
+        *   **2D FFT:** A 2D FFT is performed to compute the Range-Doppler map, which provides both range and velocity information about objects.
+        *   **2D CFAR Detection:** A 2D version of the CFAR algorithm is applied to the Range-Doppler map to detect objects.
+        *   **Range Doppler Queue:** The processed Range-Doppler map and detected points are sent to this queue.
+        *   **GUI:** Displays the 2D Range-Doppler heatmap.
 
----
-
-### 3. **Data Acquisition**
-
-- **mmWave Radar Sensor**: Hardware device (e.g., AWR1843AOP) that emits and receives radar signals.
-- **DCA1000 FPGA**: Captures raw ADC samples and transmits them via UDP over Gigabit Ethernet.
-- **`UdpListener` Thread**: Listens for incoming UDP packets and feeds raw binary data into a **shared Binary Data Queue**.
-- **Binary Data Queue**: Buffers incoming data and decouples acquisition from processing.
-
----
-
-### 4. **Data Processing Pipelines**
-
-Each application runs an independent processing pipeline in a separate thread, all consuming data from the shared binary queue.
-
-#### a. **Range Profile Application**
-- **`DataProcessor`**: Consumes raw data from the queue.
-- **1D FFT**: Converts time-domain ADC samples into range information.
-- **CFAR Detection**: Identifies targets based on amplitude peaks in the range domain.
-- **Range Profile Queue**: Holds results for visualization.
-- **GUI**: Plots a live signal power vs. distance graph.
-
-#### b. **Range Doppler Application**
-- **`DataProcessor`**: Consumes raw data.
-- **2D FFT**: Computes range and velocity information.
-- **2D CFAR Detection**: Detects moving targets in the range-velocity plane.
-- **Range Doppler Queue**: Stores processed frames.
-- **GUI**: Displays a real-time Doppler heatmap.
-
-#### c. **Range Angle Application**
-- **`DataProcessor`**: Consumes raw data.
-- **3D FFT**: Adds angle-of-arrival estimation using antenna array signals.
-- **2D CFAR Detection**: Detects peaks in the Range-Doppler domain.
-- **Range Angle Queue**: Holds processed angle data.
-- **GUI**: Displays target locations in polar (Range vs. Angle) format.
-
----
+    *   **Range Angle:**
+        *   **`DataProcessor`:** Consumes data from the binary queue.
+        *   **3D FFT:** A 3D FFT is performed. The first two dimensions compute the Range-Doppler map, and the third dimension (across the virtual antenna array) is used to estimate the angle of arrival (azimuth) of the detected objects.
+        *   **2D CFAR Detection:** CFAR is applied to the Range-Doppler map before angle estimation.
+        *   **Range Angle Queue:** The resulting Range-Angle map and detected points are placed in this queue.
+        *   **GUI:** Displays a 2D heatmap of the objects' spatial locations (Range vs. Angle).
 
 ### 🔑 Summary
 
@@ -124,6 +107,14 @@ Each application runs an independent processing pipeline in a separate thread, a
 - 🧩 **Modular** structure allows easy extension or modification.
 - 🔌 **Decoupled pipelines** make real-time processing feasible.
 - 🧠 Suitable for developers, researchers, and educators working on mmWave radar.
+
+
+
+
+
+
+
+
 
 
 
