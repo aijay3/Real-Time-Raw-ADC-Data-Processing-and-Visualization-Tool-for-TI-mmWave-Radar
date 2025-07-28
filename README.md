@@ -64,52 +64,66 @@ This project addresses those limitations by providing:
 
 ## System Architecture
 
-This tool is organized into modular components that operate together to achieve real-time radar data capture, processing, and visualization. The system consists of the following core stages:
+This tool is organized as a multi-threaded, modular radar processing system. It enables real-time data acquisition, signal processing, and visualization of raw ADC data streamed from TI mmWave radar sensors via the DCA1000EVM.
 
-### 1. Launcher Interface
-- The system starts with a Python-based GUI (`launcher.py`) that allows users to launch any of the three radar processing modes: **Range Profile**, **Range Doppler**, or **Range Angle**.
-- Each mode opens a separate application window with its own processing pipeline and visualization layout.
-
-### 2. Radar Configuration
-- A TI-standard radar configuration file (`.cfg`) is used to define parameters such as chirp duration, frame periodicity, and sampling rate.
-- A configuration module (`SerialConfig`) reads this file and sends commands to the radar sensor via a serial (UART) interface to initialize the radar.
-
-### 3. Data Acquisition
-- Once configured, the **mmWave radar sensor** (e.g., AWR1843AOP) streams **raw ADC data** through the **DCA1000EVM**, which packetizes it and sends it over Ethernet.
-- A background thread (`UdpListener`) receives UDP packets and places the raw data into a shared **binary data queue**.
-- This queue serves as a buffer between acquisition and processing, allowing the system to decouple data ingestion from processing.
-
-### 4. Data Processing Pipelines
-Each radar mode has its own processing pipeline running in a separate thread. They all read from the shared binary queue and produce different types of visualizations:
-
-#### a. Range Profile Mode
-- Applies a **1D FFT** to extract range information.
-- Uses **CFAR (Constant False Alarm Rate)** detection to identify targets.
-- Sends processed results to the Range Profile GUI for plotting.
-
-#### b. Range Doppler Mode
-- Applies a **2D FFT** to extract both range and relative velocity.
-- Uses 2D CFAR to highlight moving objects in a range-velocity heatmap.
-- Displays real-time updates in the Doppler GUI.
-
-#### c. Range Angle Mode
-- Applies a **3D FFT** (range → Doppler → angle across antennas) to estimate spatial angle-of-arrival.
-- Performs beamforming and shows results on a range-angle map.
-- Useful for identifying direction of incoming targets.
-
-### 5. Graphical User Interface (GUI)
-- Each mode has its own PyQt5-based GUI that visualizes the processed radar data.
-- The GUI includes controls for tuning FFT parameters, selecting receiver channels, removing static clutter, and adjusting CFAR settings.
+The architecture consists of four main components:
 
 ---
 
-### 🔑 Architectural Highlights
-- **Multithreaded design** ensures real-time responsiveness.
-- **Modular layout** makes it easy to extend or replace signal processing blocks.
-- **Hardware-agnostic structure** (as long as raw ADC data is received in TI's LVDS format via DCA1000).
-- Optimized for **low-latency live display**, suitable for teaching, research, and prototyping radar-based applications.
+### 1. **Launcher (`launcher.py`)**
+The main entry point of the system. It provides a graphical user interface (GUI) that allows users to select and launch one of the three radar processing applications: **Range Profile**, **Range Doppler**, or **Range Angle**.
 
 ---
+
+### 2. **Radar Configuration**
+
+- **Config File (`.cfg`)**: A text file containing radar parameters (e.g., chirp settings, sampling rate, frame duration).
+- **`SerialConfig` Module**: Reads the `.cfg` file and sends commands via UART (serial port) to configure the radar sensor.
+
+---
+
+### 3. **Data Acquisition**
+
+- **mmWave Radar Sensor**: Hardware device (e.g., AWR1843AOP) that emits and receives radar signals.
+- **DCA1000 FPGA**: Captures raw ADC samples and transmits them via UDP over Gigabit Ethernet.
+- **`UdpListener` Thread**: Listens for incoming UDP packets and feeds raw binary data into a **shared Binary Data Queue**.
+- **Binary Data Queue**: Buffers incoming data and decouples acquisition from processing.
+
+---
+
+### 4. **Data Processing Pipelines**
+
+Each application runs an independent processing pipeline in a separate thread, all consuming data from the shared binary queue.
+
+#### a. **Range Profile Application**
+- **`DataProcessor`**: Consumes raw data from the queue.
+- **1D FFT**: Converts time-domain ADC samples into range information.
+- **CFAR Detection**: Identifies targets based on amplitude peaks in the range domain.
+- **Range Profile Queue**: Holds results for visualization.
+- **GUI**: Plots a live signal power vs. distance graph.
+
+#### b. **Range Doppler Application**
+- **`DataProcessor`**: Consumes raw data.
+- **2D FFT**: Computes range and velocity information.
+- **2D CFAR Detection**: Detects moving targets in the range-velocity plane.
+- **Range Doppler Queue**: Stores processed frames.
+- **GUI**: Displays a real-time Doppler heatmap.
+
+#### c. **Range Angle Application**
+- **`DataProcessor`**: Consumes raw data.
+- **3D FFT**: Adds angle-of-arrival estimation using antenna array signals.
+- **2D CFAR Detection**: Detects peaks in the Range-Doppler domain.
+- **Range Angle Queue**: Holds processed angle data.
+- **GUI**: Displays target locations in polar (Range vs. Angle) format.
+
+---
+
+### 🔑 Summary
+
+- 🚀 **Multithreaded** architecture ensures smooth GUI performance.
+- 🧩 **Modular** structure allows easy extension or modification.
+- 🔌 **Decoupled pipelines** make real-time processing feasible.
+- 🧠 Suitable for developers, researchers, and educators working on mmWave radar.
 
 
 
