@@ -24,6 +24,91 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
   <p><i>Launcher with selectable visualization modes</i></p>
 </div>
 
+## 🧩 Real-Time Radar Processing System Architecture
+
+The tool is built as a modular real-time system where each visualization mode operates independently with its own data processor and GUI thread. Below is the high-level architecture:
+
+```mermaid
+graph TD
+    subgraph User Interface
+        A[Launcher GUI (launcher.py)]
+    end
+
+    subgraph Applications
+        B[Range Profile App (rp_main.py)]
+        C[Range Doppler App (rd_main.py)]
+        D[Range Angle App (ra_main.py)]
+    end
+
+    subgraph Radar Configuration
+        E[Radar Config File (AWR1843_cfg.cfg)]
+        F[SerialConfig Module]
+    end
+
+    subgraph Data Acquisition
+        G[mmWave Radar Sensor]
+        H[FPGA]
+        I[UDP Listener (UdpListener)]
+        J[Binary Data Queue]
+    end
+
+    subgraph Data Processing Pipelines
+        subgraph "Range Profile"
+            K[RP DataProcessor]
+            L[1D FFT (Range)]
+            M[CFAR Detection]
+            N[Range Profile Queue]
+            O[RP GUI (rp_app_layout.py)]
+        end
+        subgraph "Range Doppler"
+            P[RD DataProcessor]
+            Q[2D FFT (Range & Doppler)]
+            R[2D CFAR Detection]
+            S[Range Doppler Queue]
+            T[RD GUI (rd_app_layout.py)]
+        end
+        subgraph "Range Angle"
+            U[RA DataProcessor]
+            V[3D FFT (Range, Doppler & Angle)]
+            W[2D CFAR Detection]
+            X[Range Angle Queue]
+            Y[RA GUI (ra_app_layout.py)]
+        end
+    end
+
+    A --> |Launches| B
+    A --> |Launches| C
+    A --> |Launches| D
+
+    E --> |Loaded by| F
+    F --> |Configures| G
+
+    G --> |Raw ADC Data| H
+    H --> |UDP Packets| I
+    I --> |Fills| J
+
+    J --> |Consumed by| K
+    J --> |Consumed by| P
+    J --> |Consumed by| U
+
+    K --> L --> M --> N
+    N --> |Read by| O
+
+    P --> Q --> R --> S
+    S --> |Read by| T
+
+    U --> V --> W --> X
+    X --> |Read by| Y
+
+This architecture ensures decoupled, thread-safe operation between:
+
+    Radar configuration and control
+    UDP-based real-time data acquisition
+    Signal processing
+    Graphical visualization
+
+Each pipeline is independent and optimized for low-latency rendering and interaction.
+
 ### 🛠 Expected Hardware Compatibility
 
 This tool is designed and tested for the **AWR1843AOP** mmWave radar sensor and DCA1000EVM, but it is expected to work with other TI AWR and IWR series sensors supported by the DCA1000 interface.
