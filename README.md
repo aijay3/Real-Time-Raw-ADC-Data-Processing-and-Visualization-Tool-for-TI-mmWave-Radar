@@ -62,44 +62,55 @@ This project addresses those limitations by providing:
   <p><i>Range Angle view: spatial mapping via beamforming</i></p>
 </div>
 
-```mermaid
-graph TD
-  %% UI and Launcher
-  A[Launcher GUI (launcher.py)] --> B[Range Profile App (rp_main.py)]
-  A --> C[Range Doppler App (rd_main.py)]
-  A --> D[Range Angle App (ra_main.py)]
+## System Architecture
 
-  %% Configuration
-  E[Radar Config File (.cfg)] --> F[SerialConfig Module]
-  F --> G[mmWave Radar Sensor]
+This tool is organized into modular components that operate together to achieve real-time radar data capture, processing, and visualization. The system consists of the following core stages:
 
-  %% Data Acquisition
-  G --> H[FPGA (DCA1000)]
-  H --> I[UDP Listener]
-  I --> J[Binary Data Queue]
+### 1. Launcher Interface
+- The system starts with a Python-based GUI (`launcher.py`) that allows users to launch any of the three radar processing modes: **Range Profile**, **Range Doppler**, or **Range Angle**.
+- Each mode opens a separate application window with its own processing pipeline and visualization layout.
 
-  %% Range Profile Pipeline
-  J --> K[RP Data Processor]
-  K --> L[1D FFT]
-  L --> M[CFAR Detection]
-  M --> N[Range Profile Queue]
-  N --> O[RP GUI]
+### 2. Radar Configuration
+- A TI-standard radar configuration file (`.cfg`) is used to define parameters such as chirp duration, frame periodicity, and sampling rate.
+- A configuration module (`SerialConfig`) reads this file and sends commands to the radar sensor via a serial (UART) interface to initialize the radar.
 
-  %% Range Doppler Pipeline
-  J --> P[RD Data Processor]
-  P --> Q[2D FFT]
-  Q --> R[2D CFAR Detection]
-  R --> S[Range Doppler Queue]
-  S --> T[RD GUI]
+### 3. Data Acquisition
+- Once configured, the **mmWave radar sensor** (e.g., AWR1843AOP) streams **raw ADC data** through the **DCA1000EVM**, which packetizes it and sends it over Ethernet.
+- A background thread (`UdpListener`) receives UDP packets and places the raw data into a shared **binary data queue**.
+- This queue serves as a buffer between acquisition and processing, allowing the system to decouple data ingestion from processing.
 
-  %% Range Angle Pipeline
-  J --> U[RA Data Processor]
-  U --> V[3D FFT]
-  V --> W[2D CFAR Detection]
-  W --> X[Range Angle Queue]
-  X --> Y[RA GUI]
+### 4. Data Processing Pipelines
+Each radar mode has its own processing pipeline running in a separate thread. They all read from the shared binary queue and produce different types of visualizations:
 
-```
+#### a. Range Profile Mode
+- Applies a **1D FFT** to extract range information.
+- Uses **CFAR (Constant False Alarm Rate)** detection to identify targets.
+- Sends processed results to the Range Profile GUI for plotting.
+
+#### b. Range Doppler Mode
+- Applies a **2D FFT** to extract both range and relative velocity.
+- Uses 2D CFAR to highlight moving objects in a range-velocity heatmap.
+- Displays real-time updates in the Doppler GUI.
+
+#### c. Range Angle Mode
+- Applies a **3D FFT** (range → Doppler → angle across antennas) to estimate spatial angle-of-arrival.
+- Performs beamforming and shows results on a range-angle map.
+- Useful for identifying direction of incoming targets.
+
+### 5. Graphical User Interface (GUI)
+- Each mode has its own PyQt5-based GUI that visualizes the processed radar data.
+- The GUI includes controls for tuning FFT parameters, selecting receiver channels, removing static clutter, and adjusting CFAR settings.
+
+---
+
+### 🔑 Architectural Highlights
+- **Multithreaded design** ensures real-time responsiveness.
+- **Modular layout** makes it easy to extend or replace signal processing blocks.
+- **Hardware-agnostic structure** (as long as raw ADC data is received in TI's LVDS format via DCA1000).
+- Optimized for **low-latency live display**, suitable for teaching, research, and prototyping radar-based applications.
+
+---
+
 
 
 This is a real-time ADC sample capture and processing tool to obtain and analyze raw data from TI mmWave radar ***AWR1843AOP EVM*** cascading with ***DCA1000 EVM*** using Python. The tool enables real-time processing to generate Range Profile, Range-Doppler, and Range-Angle images under 1 Transmitter and 4 Receiver (in this version) setting without using mmWave studio.
