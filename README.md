@@ -62,85 +62,45 @@ This project addresses those limitations by providing:
   <p><i>Range Angle view: spatial mapping via beamforming</i></p>
 </div>
 
-## System Architecture
-
-This tool is architected for **modular, real-time processing** of radar data acquired via the **TI DCA1000EVM**. It supports **three fully decoupled processing pipelines** — for Range Profile, Range Doppler, and Range Angle — each with its own data processor, visualization interface, and configuration logic.
-
-Data is acquired using **UDP packets**, parsed into shared memory queues, and processed through **multi-threaded pipelines** with configurable FFTs and CFAR detection.
-
 ```mermaid
 graph TD
-    subgraph User Interface
-        A[Launcher GUI (launcher.py)]
-    end
+  %% UI and Launcher
+  A[Launcher GUI (launcher.py)] --> B[Range Profile App (rp_main.py)]
+  A --> C[Range Doppler App (rd_main.py)]
+  A --> D[Range Angle App (ra_main.py)]
 
-    subgraph Applications
-        B[Range Profile App (rp_main.py)]
-        C[Range Doppler App (rd_main.py)]
-        D[Range Angle App (ra_main.py)]
-    end
+  %% Configuration
+  E[Radar Config File (.cfg)] --> F[SerialConfig Module]
+  F --> G[mmWave Radar Sensor]
 
-    subgraph Radar Configuration
-        E[Radar Config File (AWR1843_cfg.cfg)]
-        F[SerialConfig Module]
-    end
+  %% Data Acquisition
+  G --> H[FPGA (DCA1000)]
+  H --> I[UDP Listener]
+  I --> J[Binary Data Queue]
 
-    subgraph Data Acquisition
-        G[mmWave Radar Sensor]
-        H[FPGA]
-        I[UDP Listener (UdpListener)]
-        J[Binary Data Queue]
-    end
+  %% Range Profile Pipeline
+  J --> K[RP Data Processor]
+  K --> L[1D FFT]
+  L --> M[CFAR Detection]
+  M --> N[Range Profile Queue]
+  N --> O[RP GUI]
 
-    subgraph Data Processing Pipelines
-        subgraph "Range Profile"
-            K[RP DataProcessor]
-            L[1D FFT (Range)]
-            M[CFAR Detection]
-            N[Range Profile Queue]
-            O[RP GUI (rp_app_layout.py)]
-        end
-        subgraph "Range Doppler"
-            P[RD DataProcessor]
-            Q[2D FFT (Range & Doppler)]
-            R[2D CFAR Detection]
-            S[Range Doppler Queue]
-            T[RD GUI (rd_app_layout.py)]
-        end
-        subgraph "Range Angle"
-            U[RA DataProcessor]
-            V[3D FFT (Range, Doppler & Angle)]
-            W[2D CFAR Detection]
-            X[Range Angle Queue]
-            Y[RA GUI (ra_app_layout.py)]
-        end
-    end
+  %% Range Doppler Pipeline
+  J --> P[RD Data Processor]
+  P --> Q[2D FFT]
+  Q --> R[2D CFAR Detection]
+  R --> S[Range Doppler Queue]
+  S --> T[RD GUI]
 
-    A --> |Launches| B
-    A --> |Launches| C
-    A --> |Launches| D
-
-    E --> |Loaded by| F
-    F --> |Configures| G
-
-    G --> |Raw ADC Data| H
-    H --> |UDP Packets| I
-    I --> |Fills| J
-
-    J --> |Consumed by| K
-    J --> |Consumed by| P
-    J --> |Consumed by| U
-
-    K --> L --> M --> N
-    N --> |Read by| O
-
-    P --> Q --> R --> S
-    S --> |Read by| T
-
-    U --> V --> W --> X
-    X --> |Read by| Y
+  %% Range Angle Pipeline
+  J --> U[RA Data Processor]
+  U --> V[3D FFT]
+  V --> W[2D CFAR Detection]
+  W --> X[Range Angle Queue]
+  X --> Y[RA GUI]
 
 ```
+
 
 This is a real-time ADC sample capture and processing tool to obtain and analyze raw data from TI mmWave radar ***AWR1843AOP EVM*** cascading with ***DCA1000 EVM*** using Python. The tool enables real-time processing to generate Range Profile, Range-Doppler, and Range-Angle images under 1 Transmitter and 4 Receiver (in this version) setting without using mmWave studio.
 
