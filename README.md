@@ -151,6 +151,122 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 - 🧠 Suitable for developers, researchers, and educators working on mmWave radar.
 
 
+## Hardware Setup
+
+The following hardware is required to run the system:
+
+### 📡 1. TI Radar Sensor Module
+
+**Texas Instruments AWR1843AOP EVM**
+- 76–81 GHz mmWave radar sensor with integrated antenna
+- 3 Transmitters, 4 Receivers (3TX/4RX AoP configuration)
+- Onboard C67x DSP and Cortex-R4F MCU
+- Field of View: ~140° (Azimuth & Elevation)
+
+> 💡 Other TI AWR/IWR series radar EVMs may also work if supported by DCA1000 and output raw ADC data over LVDS.
+
+---
+
+### 🔌 2. Data Capture Module
+
+**DCA1000EVM**
+- Streams raw ADC data from radar over Ethernet
+- 1 Gbps Ethernet support
+- Connects to radar via 60-pin Samtec connector
+
+---
+
+### 🖥️ 3. Host Computer
+
+Recommended system:
+- **Operating System**: Windows 10 or 11 (64-bit)
+- **CPU**: Intel Core i5 or equivalent (2.5 GHz+)
+- **Memory**: 8 GB RAM minimum (16 GB recommended)
+- **Storage**: At least 500 GB free (for ADC capture files)
+- **Ports**:
+  - 2x USB (Micro USB for radar + DCA1000 control)
+  - 1x Gigabit Ethernet (dedicated for radar streaming)
+
+---
+
+### 🧩 4. Connectivity and Accessories
+
+- **Ethernet Cable**: CAT5e or CAT6
+- **USB Cables**:
+  - USB-A to Micro-USB (for radar UART)
+  - USB-A to Micro-USB (for DCA1000 FTDI control)
+- **Power Supplies**:
+  - 5V DC, 2.5–3A for AWR1843AOP EVM
+  - Optional: separate 5V DC for DCA1000 (or use EVM passthrough)
+- **Optional**:
+  - Tripod or mounting system
+  - RF absorbers for test lab
+  - Corner reflectors or calibration targets
+
+## Hardware Setup
+
+Follow these steps to physically prepare and connect the radar system.
+
+---
+
+### 1. Prepare the Boards
+
+- Ensure **both boards are powered off** before setup.
+- Place the AWR1843AOP EVM on a **non-conductive surface** or mount on a tripod if needed.
+- Set the **switches on AWR1843AOP EVM** to **DCA1000 (SDK) mode**:
+  - SOP0 = OFF (S1.3)
+  - SOP1 = OFF (S1.4)
+  - SOP2 = OFF (S3)
+- Set the **pin mux switches** on AWR1843AOP as:
+  - S1.1 = OFF, S1.2 = OFF, S1.3 = OFF, S1.4 = OFF
+  - S2.1 = OFF, S2.2 = OFF, S2.3 = OFF, S2.4 = OFF
+  - S3 = OFF
+
+> Refer to [TI User Guide]
+
+📸 *Example SOP and DIP switch settings (AWR1843AOP)*  
+![AWR1843 Switches](images/awr1843_switches.png)
+
+---
+
+### 2. Configure the DCA1000 EVM
+
+- **Set DCA1000 switches** to RAW ADC capture mode:
+  - **SW5 (SW_CONFIG)**: Set to `DATA_MODE = LVDS_CAPTURE`
+  - **SW2.5** (Trigger Mode): DOWN position = software trigger
+- Leave other switches (SW2.1–2.4) in OFF position unless required otherwise.
+
+📸 *DCA1000EVM switch block (SW2, SW5)*  
+![DCA1000 Switches](images/dca1000_switches.png)
+
+---
+
+### 3. Connect AWR1843AOP to DCA1000EVM
+
+- Stack the red AWR1843AOP EVM directly onto the green DCA1000EVM using the **J11 60-pin connector**.
+- Align and press down firmly to ensure good contact.
+
+📸 *Mounted EVM stack via J11*  
+![Stacked Boards](images/mounted_ewm_stack.png)
+
+---
+
+### 4. Connect to Computer
+
+- Connect the following using appropriate USB and Ethernet cables:
+  - **AWR1843 UART** → PC (Micro-USB)
+  - **DCA1000 FTDI** → PC (Micro-USB)
+  - **DCA1000 Ethernet (RJ45)** → PC Ethernet port
+- Connect power:
+  - **5V DC to AWR1843AOP**
+  - **5V DC to DCA1000** (or power through EVM if configured)
+
+📸 *All connections overview*  
+![Fully Wired Setup](images/connection_diagram.png)
+
+---
+
+
 
 
 
