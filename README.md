@@ -1,4 +1,68 @@
-# Real Time Data Capture and Processing Tool for mmWave Radar in Python
+# Real-Time Raw ADC Data Processing and Visualization Tool for TI mmWave Radar
+
+## Overview
+
+This project provides a real-time radar data capture and processing pipeline for **TI mmWave radar sensors** using the **DCA1000EVM** and a **Python-based software stack** — without relying on TI’s mmWave Studio. It streams and processes **raw ADC data** directly from compatible radar devices and presents the output in intuitive live visualizations.
+
+Traditional workflows with mmWave Studio are limited to file-based offline processing and require multiple dependencies, specific software versions, and complex configuration steps. This tool bypasses those limitations by enabling **live UDP data capture**, **multi-threaded signal processing**, and **interactive GUI-based visualization**.
+
+### 🧠 Key Features
+
+- **Real-time radar visualization modes**:
+  - 📈 **Range Profile** – object distance via FFT
+  - 🔁 **Range Doppler** – distance and velocity mapping
+  - 🧭 **Range Angle** – angular position estimation using beamforming
+- **Direct raw ADC capture** via DCA1000 (no mmWave Studio)
+- **CFAR detection**, **clutter removal**, and **windowed FFT processing**
+- Interactive GUI with:
+  - Parameter tuning (FFT size, padding, channel selection)
+  - Live plot updates (~10 FPS)
+- Modular Python implementation with PyQt5 and PyQtGraph
+
+<div align="center">
+  <img src="images/launcher_interface.png" width="600"/>
+  <p><i>Launcher with selectable visualization modes</i></p>
+</div>
+
+### 🛠 Expected Hardware Compatibility
+
+This tool is designed and tested for the **AWR1843AOP** mmWave radar sensor and DCA1000EVM, but it is expected to work with other TI AWR and IWR series sensors supported by the DCA1000 interface.
+
+Examples include:
+- AWR1243, AWR1443, AWR1642, AWR2243, AWR2944, AWR6843, AWR6843AOP
+- IWR1443, IWR1642, IWR1843, IWR2944, IWR6843, IWR6843AOP
+
+> ⚠️ While not all devices are explicitly tested, compatibility is expected based on shared interface and data capture protocols. Ensure your radar is supported by the DCA1000EVM and outputs raw ADC via LVDS.
+
+<div align="center">
+  <img src="images/range_profile.png" width="600"/>
+  <p><i>Range Profile view: signal power vs. distance</i></p>
+</div>
+
+### 🚧 Motivation
+
+Setting up real-time raw ADC capture with mmWave Studio often involves:
+- Complex DIP switch configurations and unclear hardware instructions
+- Platform-specific dependencies (Windows-only, MATLAB runtime)
+- Fragmented documentation across toolboxes, user guides, and forums
+- No support for live processing — only offline `.bin` analysis
+
+This project addresses those limitations by providing:
+- A **streamlined setup** (Python + Ethernet + config file)
+- A **user-friendly interface** with parameter control and diagnostics
+- A fully **extensible signal processing pipeline** for education, prototyping, and research
+
+<div align="center">
+  <img src="images/range_doppler.png" width="600"/>
+  <p><i>Range Doppler view: distance vs. relative speed</i></p>
+</div>
+
+<div align="center">
+  <img src="images/range_angle.png" width="600"/>
+  <p><i>Range Angle view: spatial mapping via beamforming</i></p>
+</div>
+
+
 
 This is a real-time ADC sample capture and processing tool to obtain and analyze raw data from TI mmWave radar ***AWR1843AOP EVM*** cascading with ***DCA1000 EVM*** using Python. The tool enables real-time processing to generate Range Profile, Range-Doppler, and Range-Angle images under 1 Transmitter and 4 Receiver (in this version) setting without using mmWave studio.
 
