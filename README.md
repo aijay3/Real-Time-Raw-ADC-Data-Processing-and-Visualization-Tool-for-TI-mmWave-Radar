@@ -139,7 +139,7 @@ This project addresses those limitations by providing:
 4. Use a USB-A to Micro-USB cable to connect the FTDI USB port on the DCA1000 EVM to the USB port on your computer
 
 <p align="center">
-<img width="755" height="377" alt="image" src="https://github.com/user-attachments/assets/8e28aed3-a611-4d30-a8c3-b5c4fc877d55" />
+<img width="729" height="362" alt="image" src="https://github.com/user-attachments/assets/fe93839d-08d3-456d-85d0-3450234b9e9f" />
 </p>
 
 ### Driver Installation
