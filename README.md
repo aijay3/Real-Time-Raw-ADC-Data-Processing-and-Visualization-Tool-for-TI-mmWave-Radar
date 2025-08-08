@@ -19,6 +19,10 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
   - Live plot updates
 - **Modular Python implementation with PyQt5 and PyQtGraph**
 
+<p align="center">
+<img width="439" height="481" alt="image" src="https://github.com/user-attachments/assets/2c6f995e-a21a-4bd3-afcd-7a9498e2cb59" />
+</p>
+
 ## 🛠 Expected Hardware Compatibility
 
 This tool is designed and tested for the **AWR1843AOP mmWave radar sensor** and **DCA1000EVM**, but it is expected to work with other TI AWR and IWR series sensors supported by the DCA1000 interface.
@@ -538,15 +542,5 @@ For any other problems, go through the documents folder which contains the user 
 
 ---
 
-## Contributing
 
-We welcome contributions to improve this project! Please feel free to submit issues, feature requests, or pull requests.
-
-## License
-
-[Add your license information here]
-
-## Acknowledgments
-
-This project builds upon the work of the TI mmWave radar community and provides an open-source alternative to proprietary radar processing tools.
 
