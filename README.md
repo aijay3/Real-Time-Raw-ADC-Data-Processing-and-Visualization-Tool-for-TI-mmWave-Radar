@@ -225,7 +225,7 @@ Here's how they are related:
 4. **Follow the installation wizard**, click the "Next" button, and agree with the terms of use to complete the installation process and the CP210x USB drivers will be installed successfully.
 
 <p align="center">
-<img width="657" height="509" alt="image" src="https://github.com/user-attachments/assets/322109d4-79e6-4f12-865d-d7f3935e99cb" />
+<img width="643" height="495" alt="image" src="https://github.com/user-attachments/assets/957562be-e53f-41bb-b1af-eb40ec3ec8f7" />
 <p align="center">
 
 **Verification:**  In the Windows Device Manager, the COM ports should appear as this when both the FTDI drivers and Silicon Labs USB-to-UART Drivers are installed.
