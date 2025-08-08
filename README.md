@@ -164,7 +164,7 @@ FTDI (Future Technology Devices International) drivers are software components t
 Open Windows Device Manager and expand the "Ports (COM & LPT)" list for confirming hardware detection. When the DCA1000 + AWR1843AOPEVM is connected to the PC and switched ON for the first time, Windows may not be able to recognize the device and it may show up under "Other devices" in Device Manager. The FTDI device ports of the DCA1000 board will appear with a yellow label when the driver is not installed.
 
 <p align="center">
-<img width="468" height="236" alt="image" src="https://github.com/user-attachments/assets/2a3deb0c-ebcd-4640-8a1c-95d91fc5957b" />
+<img width="371" height="204" alt="image" src="https://github.com/user-attachments/assets/91d9ab3e-b7e7-4e42-893b-7380a5e1d803" />
 </p>
 
 **Installation Steps:**
