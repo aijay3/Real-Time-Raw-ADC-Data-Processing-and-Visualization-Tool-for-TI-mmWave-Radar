@@ -20,6 +20,7 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
 - **Modular Python implementation with PyQt5 and PyQtGraph**
 
 <p align="center">
+<img width="600" height="662" alt="image" src="https://github.com/user-attachments/assets/5904c278-7d81-4a25-b1d7-9623181a0388" />
 <img width="945" height="383" alt="image" src="https://github.com/user-attachments/assets/ed266efc-2328-493a-a53f-1a7194726f95" />
 <img width="945" height="327" alt="image" src="https://github.com/user-attachments/assets/d516dd27-d0d3-4993-a926-6847ec1fe04a" />
 <img width="944" height="314" alt="image" src="https://github.com/user-attachments/assets/6fae7db6-c793-4b3a-b0d6-933e5cc0b185" />
