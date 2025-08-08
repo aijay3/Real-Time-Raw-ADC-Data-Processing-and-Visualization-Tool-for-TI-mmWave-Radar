@@ -59,6 +59,11 @@ This project addresses those limitations by providing:
 - Onboard C67x DSP and Cortex-R4F MCU
 - Field of View: ~140° (Azimuth & Elevation)
 
+<p align="center">
+<img width="509" height="286" alt="image" src="https://github.com/user-attachments/assets/6128ab2d-add0-4f37-8c2a-a6b6c864e652" />
+</p>
+
+
 💡 **Other TI AWR/IWR series radar EVMs may also work if supported by DCA1000 and output raw ADC data over LVDS.**
 
 #### 🔌 2. Data Capture Module
@@ -66,6 +71,10 @@ This project addresses those limitations by providing:
 - Streams raw ADC data from radar over Ethernet
 - 1 Gbps Ethernet support
 - Connects to radar via 60-pin Samtec connector
+
+<p align="center">
+<img width="582" height="328" alt="image" src="https://github.com/user-attachments/assets/8160ffb5-c97c-4045-b4da-8697094ceb0f" />
+</p>
 
 #### 🖥️ 3. Host Computer
 **Recommended system:**
@@ -99,11 +108,28 @@ This project addresses those limitations by providing:
 - Mount the radar module on a stable surface or tripod
 - Make sure the switches on AWR1843AOP are in position of DCA1000(SDK) mode
 
+<p align="center">
+<img width="685" height="551" alt="image" src="https://github.com/user-attachments/assets/c7c07d45-cdb3-4b33-be86-e42f21239e30" />
+</p>
+
+<p align="center">  
+<img width="509" height="161" alt="image" src="https://github.com/user-attachments/assets/39890aba-0778-48ba-9d0d-55f015805d13" />
+</p>
+
+
 **DCA1000**
 - Make sure the switches on DCA1000 are in position for RAW ADC Capture from AWR1843AOP EVM
 
+<p align="center">
+<img width="509" height="257" alt="image" src="https://github.com/user-attachments/assets/356cc4d8-a46f-4037-87d2-fe3e796c5179" />
+</p>
+
 **Connecting Setup - AWR1843AOP EVM to DCA1000 EVM:**
 - Mount the AWR1843AOP EVM to DCA1000 EVM using the J11 connector
+
+<p align="center">
+<img width="648" height="384" alt="image" src="https://github.com/user-attachments/assets/106c1ab5-11e1-4fe9-a750-fbfaf0ed2a59" />
+</p>
 
 **Connecting AWR1843AOP EVM + DCA1000 EVM to Computer:**
 
@@ -111,6 +137,10 @@ This project addresses those limitations by providing:
 2. Connect the 5V power supply for the AWR1843AOP module
 3. Use a USB-A to Micro-USB cable to connect the UART USB port on the AWR1843AOP EVM to the USB port on your computer
 4. Use a USB-A to Micro-USB cable to connect the FTDI USB port on the DCA1000 EVM to the USB port on your computer
+
+<p align="center">
+<img width="755" height="377" alt="image" src="https://github.com/user-attachments/assets/8e28aed3-a611-4d30-a8c3-b5c4fc877d55" />
+</p>
 
 ### Driver Installation
 
