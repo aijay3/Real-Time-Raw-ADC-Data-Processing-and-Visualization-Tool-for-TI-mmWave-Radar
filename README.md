@@ -21,6 +21,9 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
 
 <p align="center">
 <img width="439" height="481" alt="image" src="https://github.com/user-attachments/assets/2c6f995e-a21a-4bd3-afcd-7a9498e2cb59" />
+<img width="945" height="389" alt="image" src="https://github.com/user-attachments/assets/923b5ef4-98da-49f8-ac35-691a834037b4" />
+<img width="945" height="327" alt="image" src="https://github.com/user-attachments/assets/e9825a6d-4cbd-4cdb-b713-87bcc49202f1" />
+<img width="897" height="298" alt="image" src="https://github.com/user-attachments/assets/1959800e-8df3-4cbf-89b2-d3964cfb17b8" />
 </p>
 
 ## 🛠 Expected Hardware Compatibility
@@ -142,7 +145,7 @@ This project addresses those limitations by providing:
 <img width="729" height="362" alt="image" src="https://github.com/user-attachments/assets/fe93839d-08d3-456d-85d0-3450234b9e9f" />
 </p>
 
-### Driver Installation
+### Drivers Installation
 
 #### Installation of FTDI and XDS driver
 
@@ -161,6 +164,10 @@ FTDI (Future Technology Devices International) drivers are software components t
 
 Open Windows Device Manager and expand the "Ports (COM & LPT)" list for confirming hardware detection. When the DCA1000 + AWR1843AOPEVM is connected to the PC and switched ON for the first time, Windows may not be able to recognize the device and it may show up under "Other devices" in Device Manager. The FTDI device ports of the DCA1000 board will appear with a yellow label when the driver is not installed.
 
+<p align="center">
+<img width="468" height="236" alt="image" src="https://github.com/user-attachments/assets/2a3deb0c-ebcd-4640-8a1c-95d91fc5957b" />
+</p>
+
 **Installation Steps:**
 
 1. **Download the latest FTDI CDM driver** from the [FTDI website](https://ftdichip.com/drivers/d2xx-drivers/) and unzip it into a location on your PC
@@ -171,7 +178,28 @@ Open Windows Device Manager and expand the "Ports (COM & LPT)" list for confirmi
 
 **Troubleshooting FTDI Installation:**
 - If devices still appear with yellow labels, try downloading and installing mmWave Studio from [TI.com](https://www.ti.com/tool/MMWAVE-STUDIO). The required FTDI drivers will be installed automatically at the end of mmWave Studio installation.
-- If the automatic FTDI installation fails, in Windows Device Manager right-click on these devices and update the drivers by pointing to the location of the FTDI driver. This must be done for all four COM ports. If after updating the FTDI driver, Device Manager still does not show 4 new COM Ports, update the FTDI driver once again. When all four COM ports are installed, Device Manager recognizes these devices and indicates the COM port numbers.
+
+<p align="center">
+<img width="785" height="454" alt="image" src="https://github.com/user-attachments/assets/a63f16af-e8c6-45d0-b29e-6e2c08fd7fa1" />
+</p>
+
+- If the automatic FTDI installation fails, in Windows Device Manager right-click on these devices and update the drivers by pointing to the location of the FTDI driver.
+
+<p align="center">
+<img width="696" height="480" alt="image" src="https://github.com/user-attachments/assets/ce981dba-9b72-4554-80ca-c1b3edec6680" />
+<p align="center">
+
+- This must be done for all four COM ports. If after updating the FTDI driver, Device Manager still does not show 4 new COM Ports, update the FTDI driver once again.
+
+<p align="center">
+<img width="289" height="225" alt="image" src="https://github.com/user-attachments/assets/75e618ef-6b1a-47aa-a418-c3f6a6a7d1e6" />
+<p align="center">
+  
+-    When all four COM ports are installed, Device Manager recognizes these devices and indicates the COM port numbers.
+
+<p align="center">
+<img width="688" height="551" alt="image" src="https://github.com/user-attachments/assets/bab132d4-ddc6-4f10-899a-e1600817ec9a" />
+<p align="center">
 
 #### Silicon Labs USB-to-UART Driver for AWR1843AOP
 
@@ -196,7 +224,15 @@ Here's how they are related:
 
 4. **Follow the installation wizard**, click the "Next" button, and agree with the terms of use to complete the installation process and the CP210x USB drivers will be installed successfully.
 
+<p align="center">
+<img width="657" height="509" alt="image" src="https://github.com/user-attachments/assets/322109d4-79e6-4f12-865d-d7f3935e99cb" />
+<p align="center">
+
 **Verification:**  In the Windows Device Manager, the COM ports should appear as this when both the FTDI drivers and Silicon Labs USB-to-UART Drivers are installed.
+
+<p align="center">
+<img width="739" height="200" alt="image" src="https://github.com/user-attachments/assets/fa8f259c-ac2e-432d-b65f-3c798ed1c2fd" />
+<p align="center">
 
 ### Network Configuration
 
@@ -209,6 +245,10 @@ Here's how they are related:
   - **Subnet Mask:** 255.255.255.0
   - **Default Gateway:** (leave empty)
 - Click OK to save the settings
+
+<p align="center">
+<img width="651" height="517" alt="image" src="https://github.com/user-attachments/assets/3ba200eb-9283-44ec-973d-1130cdfd7c78" />
+<p align="center">
 
 #### 2. Configure Windows Firewall:
 - Open Windows Defender Firewall with Advanced Security
