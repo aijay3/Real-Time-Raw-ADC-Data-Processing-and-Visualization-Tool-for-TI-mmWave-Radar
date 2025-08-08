@@ -8,39 +8,39 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
 
 ## 🧠 Key Features
 
-• **Real-time radar visualization modes:**
+- **Real-time radar visualization modes:**
   - 📈 **Range Profile** – object distance via FFT
   - 🔁 **Range Doppler** – distance and velocity mapping
   - 🧭 **Range Angle** – angular position estimation using beamforming
-• **Direct raw ADC capture via DCA1000 (no mmWave Studio)**
-• **CFAR detection, clutter removal, and windowed FFT processing**
-• **Interactive GUI with:**
+- **Direct raw ADC capture via DCA1000 (no mmWave Studio)**
+- **CFAR detection, clutter removal, and windowed FFT processing**
+- **Interactive GUI with:**
   - Parameter tuning (FFT size, padding, channel selection)
   - Live plot updates
-• **Modular Python implementation with PyQt5 and PyQtGraph**
+- **Modular Python implementation with PyQt5 and PyQtGraph**
 
 ## 🛠 Expected Hardware Compatibility
 
 This tool is designed and tested for the **AWR1843AOP mmWave radar sensor** and **DCA1000EVM**, but it is expected to work with other TI AWR and IWR series sensors supported by the DCA1000 interface.
 
 **Examples include:**
-• AWR1243, AWR1443, AWR1642, AWR2243, AWR2944, AWR6843, AWR6843AOP
-• IWR1443, IWR1642, IWR1843, IWR2944, IWR6843, IWR6843AOP
+- AWR1243, AWR1443, AWR1642, AWR2243, AWR2944, AWR6843, AWR6843AOP
+- IWR1443, IWR1642, IWR1843, IWR2944, IWR6843, IWR6843AOP
 
 ⚠️ **While not all devices are explicitly tested, compatibility is expected based on shared interface and data capture protocols. Ensure your radar is supported by the DCA1000EVM and outputs raw ADC via LVDS.**
 
 ## 🚧 Motivation
 
 Setting up real-time raw ADC capture with mmWave Studio often involves:
-• Complex DIP switch configurations and unclear hardware instructions
-• Platform-specific dependencies (Windows-only, MATLAB runtime)
-• Fragmented documentation across toolboxes, user guides, and forums
-• No support for live processing — only offline .bin analysis
+- Complex DIP switch configurations and unclear hardware instructions
+- Platform-specific dependencies (Windows-only, MATLAB runtime)
+- Fragmented documentation across toolboxes, user guides, and forums
+- No support for live processing — only offline .bin analysis
 
 This project addresses those limitations by providing:
-• A streamlined setup (Python + Ethernet + config file)
-• A user-friendly interface with parameter control and diagnostics
-• A fully extensible signal processing pipeline for education, prototyping, and research
+- A streamlined setup (Python + Ethernet + config file)
+- A user-friendly interface with parameter control and diagnostics
+- A fully extensible signal processing pipeline for education, prototyping, and research
 
 ---
 
@@ -50,38 +50,38 @@ This project addresses those limitations by providing:
 
 #### 📡 1. TI Radar Sensor Module
 **Texas Instruments AWR1843AOP EVM**
-• 76–81 GHz mmWave radar sensor with integrated antenna
-• 3 Transmitters, 4 Receivers (3TX/4RX AoP configuration)
-• Onboard C67x DSP and Cortex-R4F MCU
-• Field of View: ~140° (Azimuth & Elevation)
+- 76–81 GHz mmWave radar sensor with integrated antenna
+- 3 Transmitters, 4 Receivers (3TX/4RX AoP configuration)
+- Onboard C67x DSP and Cortex-R4F MCU
+- Field of View: ~140° (Azimuth & Elevation)
 
 💡 **Other TI AWR/IWR series radar EVMs may also work if supported by DCA1000 and output raw ADC data over LVDS.**
 
 #### 🔌 2. Data Capture Module
 **DCA1000EVM**
-• Streams raw ADC data from radar over Ethernet
-• 1 Gbps Ethernet support
-• Connects to radar via 60-pin Samtec connector
+- Streams raw ADC data from radar over Ethernet
+- 1 Gbps Ethernet support
+- Connects to radar via 60-pin Samtec connector
 
 #### 🖥️ 3. Host Computer
 **Recommended system:**
-• **Operating System:** Windows 10 or 11 (64-bit)
-• **CPU:** Intel Core i5 or equivalent (2.5 GHz+)
-• **Memory:** 8 GB RAM minimum (16 GB recommended)
-• **Storage:** At least 500 GB free (for ADC capture files)
-• **Ports:**
+- **Operating System:** Windows 10 or 11 (64-bit)
+- **CPU:** Intel Core i5 or equivalent (2.5 GHz+)
+- **Memory:** 8 GB RAM minimum (16 GB recommended)
+- **Storage:** At least 500 GB free (for ADC capture files)
+- **Ports:**
   - 2x USB (Micro USB for radar + DCA1000 control)
   - 1x Gigabit Ethernet (dedicated for radar streaming)
 
 #### 🧩 4. Connectivity and Accessories
-• **Ethernet Cable:** CAT5e or CAT6
-• **USB Cables:**
+- **Ethernet Cable:** CAT5e or CAT6
+- **USB Cables:**
   - USB-A to Micro-USB (for radar UART)
   - USB-A to Micro-USB (for DCA1000 FTDI control)
-• **Power Supplies:**
+- **Power Supplies:**
   - 5V DC, 2.5–3A for AWR1843AOP EVM
   - Optional: separate 5V DC for DCA1000 (or use EVM passthrough)
-• **Optional:**
+- **Optional:**
   - Tripod or mounting system
   - RF absorbers for test lab
   - Corner reflectors or calibration targets
@@ -91,15 +91,15 @@ This project addresses those limitations by providing:
 #### Prepare the Hardware:
 
 **AWR1843AOP EVM**
-• Ensure all components are powered off before starting
-• Mount the radar module on a stable surface or tripod
-• Make sure the switches on AWR1843AOP are in position of DCA1000(SDK) mode
+- Ensure all components are powered off before starting
+- Mount the radar module on a stable surface or tripod
+- Make sure the switches on AWR1843AOP are in position of DCA1000(SDK) mode
 
 **DCA1000**
-• Make sure the switches on DCA1000 are in position for RAW ADC Capture from AWR1843AOP EVM
+- Make sure the switches on DCA1000 are in position for RAW ADC Capture from AWR1843AOP EVM
 
 **Connecting Setup - AWR1843AOP EVM to DCA1000 EVM:**
-• Mount the AWR1843AOP EVM to DCA1000 EVM using the J11 connector
+- Mount the AWR1843AOP EVM to DCA1000 EVM using the J11 connector
 
 **Connecting AWR1843AOP EVM + DCA1000 EVM to Computer:**
 
@@ -115,9 +115,9 @@ This project addresses those limitations by providing:
 FTDI (Future Technology Devices International) drivers are software components that allow an operating system to communicate with FTDI chips, which are commonly used for USB-to-serial (UART) and other USB bridge connections.
 
 **Types of FTDI Drivers:**
-• **VCP (Virtual COM Port):** Emulates a standard serial port on the PC, allowing legacy software to communicate with devices as if they are connected by traditional RS232/COM ports
-• **D2XX:** Provides direct access to the USB device without creating a COM port. Used by custom applications needing more control or performance
-• **D3XX:** Used for higher-speed USB3.0 chips (not common with DCA1000)
+- **VCP (Virtual COM Port):** Emulates a standard serial port on the PC, allowing legacy software to communicate with devices as if they are connected by traditional RS232/COM ports
+- **D2XX:** Provides direct access to the USB device without creating a COM port. Used by custom applications needing more control or performance
+- **D3XX:** Used for higher-speed USB3.0 chips (not common with DCA1000)
 
 **Installation Steps:**
 
@@ -150,25 +150,25 @@ The CP210x series from Silicon Labs consists of USB-to-UART bridge chips that pl
 ### Network Configuration
 
 #### 1. Configure the Network Adapter:
-• Open Windows Control Panel > Network and Internet > Network Connections
-• Identify and right-click the Ethernet adapter connected to the DCA1000 and select Properties
-• Select Internet Protocol Version 4 (TCP/IPv4), then click Properties
-• Set the following IP configuration:
+- Open Windows Control Panel > Network and Internet > Network Connections
+- Identify and right-click the Ethernet adapter connected to the DCA1000 and select Properties
+- Select Internet Protocol Version 4 (TCP/IPv4), then click Properties
+- Set the following IP configuration:
   - **IP Address:** 192.168.33.30
   - **Subnet Mask:** 255.255.255.0
   - **Default Gateway:** (leave empty)
-• Click OK to save the settings
+- Click OK to save the settings
 
 #### 2. Configure Windows Firewall:
-• Open Windows Defender Firewall with Advanced Security
-• Create inbound and outbound rules for UDP ports 4096 and 4098 or disable the firewall
+- Open Windows Defender Firewall with Advanced Security
+- Create inbound and outbound rules for UDP ports 4096 and 4098 or disable the firewall
 
 ### Hardware Validation
 
 After connections, verify:
-• Power LEDs are illuminated on both EVMs
-• Windows Device Manager shows COM ports for both devices
-• Network adapter recognizes Ethernet connection
+- Power LEDs are illuminated on both EVMs
+- Windows Device Manager shows COM ports for both devices
+- Network adapter recognizes Ethernet connection
 
 ---
 
@@ -266,9 +266,9 @@ dependencies:
 ```
 
 #### Development Environment
-• **IDE:** Visual Studio Code, PyCharm, or similar
-• **Version Control:** Git (for development)
-• **Package Manager:** pip or conda
+- **IDE:** Visual Studio Code, PyCharm, or similar
+- **Version Control:** Git (for development)
+- **Package Manager:** pip or conda
 
 ### Installation Guide
 
@@ -317,17 +317,17 @@ python launcher.py
 
 #### Running Individual Applications
 
-**Range Profile Application**
+##### Range Profile Application
 ```bash
 python "Range Profile/rp_main.py"
 ```
 
-**Range Doppler Application**
+##### Range-Doppler Application
 ```bash
 python "Range Doppler/rd_main.py"
 ```
 
-**Range Angle Application**
+##### Range-Angle Application
 ```bash
 python "Range Angle/ra_main.py"
 ```
@@ -335,47 +335,47 @@ python "Range Angle/ra_main.py"
 ### Starting Data Capture
 
 #### 1. Hardware Connection:
-• Verify all hardware connections
-• Check power indicators and COM port recognition
+- Verify all hardware connections
+- Check power indicators and COM port recognition
 
 #### 2. Software Configuration:
-• Select correct COM port from dropdown
-• Load appropriate configuration file (`config/AWR1843_cfg.cfg`)
+- Select correct COM port from dropdown
+- Load appropriate configuration file (`config/AWR1843_cfg.cfg`)
 
-**Steps to Obtain a Config File:**
+#### Steps to Obtain a Config File
 
 1. **Connect the mmWave Device and Launch the Visualizer**
-   • Connect your TI mmWave sensor to the PC using a USB cable
-   • Open the mmWave Demo Visualizer application in your browser or as a standalone app
-   • Ensure the correct serial (COM) ports are selected for communication with the device
+   - Connect your TI mmWave sensor to the PC using a USB cable
+   - Open the mmWave Demo Visualizer application in your browser or as a standalone app
+   - Ensure the correct serial (COM) ports are selected for communication with the device
 
 2. **Select the Appropriate Platform and SDK Version**
-   • In the CONFIGURE tab, choose the correct platform (e.g., xwr68xx, xwr16xx) that matches your hardware
-   • Select the SDK version that matches the firmware running on your mmWave device
+   - In the CONFIGURE tab, choose the correct platform (e.g., xwr68xx, xwr16xx) that matches your hardware
+   - Select the SDK version that matches the firmware running on your mmWave device
 
 3. **Set Up Configuration Parameters**
-   • Use the "Setup Details" and "Scene Selection" sections to specify radar parameters such as range, resolution, and detection settings
-   • Adjust other options as needed, including chirp profile, sampling rate, and frame rate
+   - Use the "Setup Details" and "Scene Selection" sections to specify radar parameters such as range, resolution, and detection settings
+   - Adjust other options as needed, including chirp profile, sampling rate, and frame rate
 
 4. **Generate and Save the Config File**
-   • Once all settings are finalized, click the SAVE CONFIG TO PC button (or similarly named option) in the CONFIGURE tab
-   • The Visualizer generates a .cfg file containing the sequence of CLI commands that configure the radar sensor
-   • Save this file to your desired location on your computer
+   - Once all settings are finalized, click the SAVE CONFIG TO PC button (or similarly named option) in the CONFIGURE tab
+   - The Visualizer generates a .cfg file containing the sequence of CLI commands that configure the radar sensor
+   - Save this file to your desired location on your computer
 
 5. **Use or Edit the Config File**
-   • The saved .cfg file can be used to reconfigure the device later by loading it in the Visualizer or sending it via command line tools
-   • You can also edit the file manually if needed, as it is a text file with documented commands
+   - The saved .cfg file can be used to reconfigure the device later by loading it in the Visualizer or sending it via command line tools
+   - You can also edit the file manually if needed, as it is a text file with documented commands
 
-• Verify network settings
+- Verify network settings
 
 #### 3. Initiate Processing:
-• Click "Send Radar Config" to configure the radar
-• Data visualization begins automatically
+- Click "Send Radar Config" to configure the radar
+- Data visualization begins automatically
 
 #### 4. Parameter Optimization:
-• Adjust processing parameters in real-time
-• Observe immediate effects in visualization
-• Fine-tune for specific application requirements
+- Adjust processing parameters in real-time
+- Observe immediate effects in visualization
+- Fine-tune for specific application requirements
 
 ### Using the Applications
 
@@ -383,21 +383,21 @@ python "Range Angle/ra_main.py"
 All applications share a consistent interface design with real-time display and interactive controls including zoom, pan, and data tables.
 
 #### 1. Configuration Panel
-• **COM Port Selection:** Choose the correct serial port for radar communication
-• **Configuration File:** Load TI-standard .cfg files
-• **Connection Status:** Real-time connection indicators
+- **COM Port Selection:** Choose the correct serial port for radar communication
+- **Configuration File:** Load TI-standard .cfg files
+- **Connection Status:** Real-time connection indicators
 
 #### 2. Processing Controls
-• **Window Functions:** Blackman-Harris, Hamming, Hann, Rectangular
-• **FFT Parameters:** Size, zero-padding options
-• **Channel Selection:** Individual RX channels or combined processing
-• **Clutter Removal:** Static background suppression
+- **Window Functions:** Blackman-Harris, Hamming, Hann, Rectangular
+- **FFT Parameters:** Size, zero-padding options
+- **Channel Selection:** Individual RX channels or combined processing
+- **Clutter Removal:** Static background suppression
 
 #### 3. CFAR Detection Settings
-• **Guard Cells:** Number of cells around target (typical: 2-8)
-• **Training Cells:** Cells for noise estimation (typical: 8-16)
-• **False Alarm Rate:** Detection threshold (typical: 10^-3 to 10^-6)
-• **Peak Grouping:** Combine nearby detections
+- **Guard Cells:** Number of cells around target (typical: 2-8)
+- **Training Cells:** Cells for noise estimation (typical: 8-16)
+- **False Alarm Rate:** Detection threshold (typical: 10^-3 to 10^-6)
+- **Peak Grouping:** Combine nearby detections
 
 ---
 
@@ -411,11 +411,11 @@ The `launcher.py` script serves as the main entry point for the entire applicati
 ### 2. Radar Configuration
 The radar configuration is handled by a set of files and modules that work together to initialize the radar hardware with the desired parameters.
 
-• **Configuration File (`config/AWR1843_cfg.cfg`):** This is a plain text file that contains a series of commands for configuring the AWR1843AOP EVM. These commands set up the radar's chirp parameters, frame structure, ADC settings, and data output format. The file is parsed by the `radar_parameters.py` module to extract the configuration values.
+- **Configuration File (`config/AWR1843_cfg.cfg`):** This is a plain text file that contains a series of commands for configuring the AWR1843AOP EVM. These commands set up the radar's chirp parameters, frame structure, ADC settings, and data output format. The file is parsed by the `radar_parameters.py` module to extract the configuration values.
 
-• **`radar_config.py`:** This module contains the `SerialConfig` class, which is responsible for communicating with the radar EVM over a serial (COM) port. It reads the commands from the .cfg file and sends them to the radar one by one. It also provides methods for starting and stopping the radar sensor.
+- **`radar_config.py`:** This module contains the `SerialConfig` class, which is responsible for communicating with the radar EVM over a serial (COM) port. It reads the commands from the .cfg file and sends them to the radar one by one. It also provides methods for starting and stopping the radar sensor.
 
-• **`radar_parameters.py`:** This module defines the `RadarParameters` class, which parses the .cfg file and calculates a set of derived parameters that are essential for the signal processing pipeline. These parameters include:
+- **`radar_parameters.py`:** This module defines the `RadarParameters` class, which parses the .cfg file and calculates a set of derived parameters that are essential for the signal processing pipeline. These parameters include:
   - Range resolution
   - Maximum range
   - Velocity resolution
@@ -425,9 +425,9 @@ The radar configuration is handled by a set of files and modules that work toget
 ### 3. Data Acquisition
 The data acquisition process is managed by a dedicated thread that receives raw ADC data from the radar and makes it available to the processing pipeline.
 
-• **UdpListener** (in `rp_real_time_process.py`, `rd_real_time_process.py`, `ra_real_time_process.py`): This class, which runs in its own thread, is responsible for listening for UDP packets from the DCA1000 EVM on a specific network port. It receives the raw ADC data, removes the packet headers, and places the binary data into a shared queue for the DataProcessor to consume.
+- **UdpListener** (in `rp_real_time_process.py`, `rd_real_time_process.py`, `ra_real_time_process.py`): This class, which runs in its own thread, is responsible for listening for UDP packets from the DCA1000 EVM on a specific network port. It receives the raw ADC data, removes the packet headers, and places the binary data into a shared queue for the DataProcessor to consume.
 
-• **Binary Data Queue:** A thread-safe queue that is used to transfer the raw ADC data from the UdpListener to the DataProcessor. This decouples the data acquisition and data processing tasks, allowing them to run in parallel and preventing data loss.
+- **Binary Data Queue:** A thread-safe queue that is used to transfer the raw ADC data from the UdpListener to the DataProcessor. This decouples the data acquisition and data processing tasks, allowing them to run in parallel and preventing data loss.
 
 ### Processing Pipelines
 
@@ -436,47 +436,47 @@ The system features three distinct processing pipelines, one for each of the sup
 #### 1. Range Profile
 The Range Profile mode provides a 1D visualization of the signal power as a function of distance from the radar.
 
-• **`rp_main.py`:** The main script for the Range Profile application. It initializes the GUI, starts the UdpListener and DataProcessor threads, and handles user interactions.
+- **`rp_main.py`:** The main script for the Range Profile application. It initializes the GUI, starts the UdpListener and DataProcessor threads, and handles user interactions.
 
-• **`rp_real_time_process.py`:** Contains the DataProcessor class for this mode. It retrieves raw data from the binary queue, reshapes it, and passes it to the `rp_dsp` module for processing.
+- **`rp_real_time_process.py`:** Contains the DataProcessor class for this mode. It retrieves raw data from the binary queue, reshapes it, and passes it to the `rp_dsp` module for processing.
 
-• **`rp_dsp.py`:** This module contains the core signal processing functions for the Range Profile mode:
+- **`rp_dsp.py`:** This module contains the core signal processing functions for the Range Profile mode:
   - **1D FFT:** A Fast Fourier Transform is applied to the ADC data to transform it from the time domain to the frequency domain, which corresponds to the range domain
   - **Pulse Compression:** A matched filter is applied to the data to improve the signal-to-noise ratio (SNR) through pulse compression
   - **CFAR Detection:** A Constant False Alarm Rate (CFAR) algorithm is used to detect peaks in the range profile, which correspond to detected objects
   - **Clutter Removal:** A static clutter removal algorithm based on Principal Component Analysis (PCA) can be applied to remove stationary background objects
 
-• **`rp_app_layout.py`:** Defines the PyQt5 GUI for the Range Profile application. It includes a 1D plot for the range profile, a table to display the range and magnitude of detected objects, and controls for configuring the processing parameters.
+- **`rp_app_layout.py`:** Defines the PyQt5 GUI for the Range Profile application. It includes a 1D plot for the range profile, a table to display the range and magnitude of detected objects, and controls for configuring the processing parameters.
 
 #### 2. Range-Doppler
 The Range-Doppler mode provides a 2D visualization of the signal power as a function of both range and velocity.
 
-• **`rd_main.py`:** The main script for the Range-Doppler application.
+- **`rd_main.py`:** The main script for the Range-Doppler application.
 
-• **`rd_real_time_process.py`:** Contains the DataProcessor for this mode, which calls the `rd_dsp` module for processing.
+- **`rd_real_time_process.py`:** Contains the DataProcessor for this mode, which calls the `rd_dsp` module for processing.
 
-• **`rd_dsp.py`:** The signal processing module for the Range-Doppler mode:
+- **`rd_dsp.py`:** The signal processing module for the Range-Doppler mode:
   - **2D FFT:** A 2D FFT is performed on the radar data cube to generate the Range-Doppler map. The first FFT is along the range dimension, and the second is along the Doppler (chirp) dimension
   - **2D CFAR Detection:** A 2D version of the CFAR algorithm is used to detect objects in the Range-Doppler map
   - **MTI Filtering:** A Moving Target Indicator (MTI) filter can be applied to suppress stationary targets and enhance the detection of moving objects
 
-• **`rd_app_layout.py`:** The GUI for the Range-Doppler application. It features a 2D heatmap for the Range-Doppler map and a data table that displays the range, speed, and direction of detected objects.
+- **`rd_app_layout.py`:** The GUI for the Range-Doppler application. It features a 2D heatmap for the Range-Doppler map and a data table that displays the range, speed, and direction of detected objects.
 
 #### 3. Range-Angle
 The Range-Angle mode provides a 2D visualization of the signal power as a function of range and angle, allowing for the spatial localization of objects.
 
-• **`ra_main.py`:** The main script for the Range-Angle application.
+- **`ra_main.py`:** The main script for the Range-Angle application.
 
-• **`ra_real_time_process.py`:** Contains the DataProcessor for this mode, which calls the `ra_dsp` module for processing.
+- **`ra_real_time_process.py`:** Contains the DataProcessor for this mode, which calls the `ra_dsp` module for processing.
 
-• **`ra_dsp.py`:** The signal processing module for the Range-Angle mode:
+- **`ra_dsp.py`:** The signal processing module for the Range-Angle mode:
   - **3D FFT:** A 3D FFT is performed on the radar data cube. The first two dimensions compute the Range-Doppler map, and the third dimension (across the virtual antenna array) is used to estimate the angle of arrival
   - **Beamforming:** A beamforming algorithm with steering vectors is used to generate the Range-Angle map for both azimuth and elevation
   - **2D CFAR Detection:** The CFAR algorithm is applied to the Range-Angle map to detect objects
 
-• **`ra_app_layout.py`:** The GUI for the Range-Angle application. It includes a 2D heatmap for the Range-Angle map and a data table that displays the range and angle of detected objects.
+- **`ra_app_layout.py`:** The GUI for the Range-Angle application. It includes a 2D heatmap for the Range-Angle map and a data table that displays the range and angle of detected objects.
 
-• **`coordinate_transforms.py`:** A utility module that provides functions for converting polar coordinates (range and angle) to Cartesian coordinates (x and z) for visualization.
+- **`coordinate_transforms.py`:** A utility module that provides functions for converting polar coordinates (range and angle) to Cartesian coordinates (x and z) for visualization.
 
 ---
 
@@ -487,14 +487,14 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 #### Hardware Connection Problems
 
 **Issue: COM ports not detected**
-• **Solution:**
+- **Solution:**
   - Verify USB cable connections
   - Check Device Manager for FTDI devices
   - Reinstall FTDI drivers if necessary
   - Try different USB ports
 
 **Issue: Network communication failure**
-• **Solution:**
+- **Solution:**
   - Verify Ethernet cable connection
   - Check IP address configuration (192.168.33.30)
   - Disable firewall temporarily
@@ -503,14 +503,14 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 #### Software Issues
 
 **Issue: Application crashes during startup**
-• **Solution:**
+- **Solution:**
   - Verify all dependencies are installed
   - Check Python version compatibility (3.8+)
   - Run in virtual environment
   - Check console output for error messages
 
 **Issue: No data visualization**
-• **Solution:**
+- **Solution:**
   - Verify radar configuration is sent successfully
   - Check network connectivity to DCA1000
   - Ensure correct switch positions on hardware
@@ -519,14 +519,14 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 #### Performance Issues
 
 **Issue: Low frame rate or delayed visualization**
-• **Solution:**
+- **Solution:**
   - Reduce FFT size or zero-padding
   - Disable unnecessary processing features
   - Close other applications to free resources
   - Check CPU and memory usage
 
 **Issue: High memory consumption**
-• **Solution:**
+- **Solution:**
   - Restart application periodically
   - Reduce buffer sizes in configuration
   - Monitor memory usage with Task Manager
