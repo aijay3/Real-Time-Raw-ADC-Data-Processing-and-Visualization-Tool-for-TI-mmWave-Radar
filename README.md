@@ -144,6 +144,8 @@ This project addresses those limitations by providing:
 
 ### Driver Installation
 
+#### Installation of FTDI and XDS driver
+
 #### FTDI Drivers for DCA1000
 
 FTDI (Future Technology Devices International) drivers are software components that allow an operating system to communicate with FTDI chips, which are commonly used for USB-to-serial (UART) and other USB bridge connections.
@@ -153,21 +155,36 @@ FTDI (Future Technology Devices International) drivers are software components t
 - **D2XX:** Provides direct access to the USB device without creating a COM port. Used by custom applications needing more control or performance
 - **D3XX:** Used for higher-speed USB3.0 chips (not common with DCA1000)
 
+• USB-to-Serial Interface: The DCA1000EVM integrates an FTDI chip (such as the FT4232) to implement its USB-to-serial (UART) interface. This lets the host computer connect to the DCA1000EVM using a standard USB cable.
+
+• Driver Requirement: For the PC to recognize and communicate with the DCA1000EVM's UART interface, the correct FTDI driver (most commonly the VCP driver) must be installed. When installed, the DCA1000 will appear as a COM port in the Device Manager.
+
+Open Windows Device Manager and expand the "Ports (COM & LPT)" list for confirming hardware detection. When the DCA1000 + AWR1843AOPEVM is connected to the PC and switched ON for the first time, Windows may not be able to recognize the device and it may show up under "Other devices" in Device Manager. The FTDI device ports of the DCA1000 board will appear with a yellow label when the driver is not installed.
+
 **Installation Steps:**
 
 1. **Download the latest FTDI CDM driver** from the [FTDI website](https://ftdichip.com/drivers/d2xx-drivers/) and unzip it into a location on your PC
 
 2. **Run the FTDI driver exe** with administrator privileges and follow the installation wizard
 
-3. **Verify Installation:** Open Windows Device Manager and expand the "Ports (COM & LPT)" list. When properly installed, you should see 4 new COM ports without yellow warning labels
+3. **Verify Installation:** Open Windows Device Manager and expand the "Ports (COM & LPT)" list. When properly installed, you should see 4 new COM ports without yellow warning labels.
 
 **Troubleshooting FTDI Installation:**
-- If devices still appear with yellow labels, try downloading and installing mmWave Studio from [TI.com](https://www.ti.com/tool/MMWAVE-STUDIO), which includes FTDI drivers
-- If automatic installation fails, manually update drivers in Device Manager by right-clicking on the devices and pointing to the FTDI driver location
+- If devices still appear with yellow labels, try downloading and installing mmWave Studio from [TI.com](https://www.ti.com/tool/MMWAVE-STUDIO). The required FTDI drivers will be installed automatically at the end of mmWave Studio installation.
+- If the automatic FTDI installation fails, in Windows Device Manager right-click on these devices and update the drivers by pointing to the location of the FTDI driver. This must be done for all four COM ports. If after updating the FTDI driver, Device Manager still does not show 4 new COM Ports, update the FTDI driver once again. When all four COM ports are installed, Device Manager recognizes these devices and indicates the COM port numbers.
 
 #### Silicon Labs USB-to-UART Driver for AWR1843AOP
 
 The CP210x series from Silicon Labs consists of USB-to-UART bridge chips that play a crucial role in connecting TI mmWave radar sensors to host computers.
+
+Here's how they are related:
+
+- TI mmWave radar sensors use UART (Universal Asynchronous Receiver-Transmitter) interfaces for configuration and data transfer. Many TI radar evaluation modules have built-in USB-to-UART bridges so they can easily connect to a PC using a USB cable.
+- CP210x chips are the USB-to-UART bridge used on many TI mmWave radar sensor boards (such as IWR and AWR series EVMs). The CP210x device converts USB from the host PC into the UART protocol used by the radar hardware. This enables:
+  - Flashing firmware to the radar sensor.
+  - Sending configuration commands.
+  - Receiving radar data as a serial stream.
+- Drive Requirements: For the serial (COM) ports of TI mmWave radar sensors to function correctly on a computer, the Silicon Labs CP210x drivers must be installed. When properly installed, the system will detect one or more serial ports (COM ports) corresponding to the radar sensor’s UART channels—these are recognized as "Silicon Labs CP210x USB to UART Bridge" ports in the device manager.
 
 **Installation Steps:**
 
@@ -177,9 +194,9 @@ The CP210x series from Silicon Labs consists of USB-to-UART bridge chips that pl
 
 3. **Right-click on the silabser.inf file** and select Install
 
-4. **Follow the installation wizard**, click the "Next" button, and agree with the terms of use to complete the installation process
+4. **Follow the installation wizard**, click the "Next" button, and agree with the terms of use to complete the installation process and the CP210x USB drivers will be installed successfully.
 
-**Verification:** In Windows Device Manager, the COM ports should appear as "Silicon Labs CP210x USB to UART Bridge" when both FTDI drivers and Silicon Labs USB-to-UART Drivers are installed
+**Verification:**  In the Windows Device Manager, the COM ports should appear as this when both the FTDI drivers and Silicon Labs USB-to-UART Drivers are installed.
 
 ### Network Configuration
 
@@ -571,6 +588,5 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
 For any other problems, go through the documents folder which contains the user guides and other documents related to troubleshooting.
 
 ---
-
 
 
