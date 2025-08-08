@@ -19,6 +19,9 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
   - Live plot updates
 • **Modular Python implementation with PyQt5 and PyQtGraph**
 
+<img width="439" height="481" alt="image" src="https://github.com/user-attachments/assets/4800fc17-ffa9-4cda-88e3-a33217db6407" />
+
+
 ## 🛠 Expected Hardware Compatibility
 
 This tool is designed and tested for the **AWR1843AOP mmWave radar sensor** and **DCA1000EVM**, but it is expected to work with other TI AWR and IWR series sensors supported by the DCA1000 interface.
@@ -55,6 +58,10 @@ This project addresses those limitations by providing:
 • Onboard C67x DSP and Cortex-R4F MCU
 • Field of View: ~140° (Azimuth & Elevation)
 
+<img width="645" height="363" alt="image" src="https://github.com/user-attachments/assets/7d6c78b5-989c-4011-8eb4-6144400ccfcf" />
+
+
+
 💡 **Other TI AWR/IWR series radar EVMs may also work if supported by DCA1000 and output raw ADC data over LVDS.**
 
 #### 🔌 2. Data Capture Module
@@ -62,6 +69,9 @@ This project addresses those limitations by providing:
 • Streams raw ADC data from radar over Ethernet
 • 1 Gbps Ethernet support
 • Connects to radar via 60-pin Samtec connector
+
+<img width="582" height="328" alt="image" src="https://github.com/user-attachments/assets/939e85af-d06c-45a9-9e9c-5b7811b4e7e1" />
+
 
 #### 🖥️ 3. Host Computer
 **Recommended system:**
@@ -94,6 +104,11 @@ This project addresses those limitations by providing:
 • Ensure all components are powered off before starting
 • Mount the radar module on a stable surface or tripod
 • Make sure the switches on AWR1843AOP are in position of DCA1000(SDK) mode
+
+<img width="685" height="551" alt="image" src="https://github.com/user-attachments/assets/294d8335-3ab2-4a1d-a2bc-ae306db35fe5" />
+<img width="509" height="161" alt="image" src="https://github.com/user-attachments/assets/f0be5b9f-c005-4f5b-b876-96cf9ffac48b" />
+
+
 
 **DCA1000**
 • Make sure the switches on DCA1000 are in position for RAW ADC Capture from AWR1843AOP EVM
