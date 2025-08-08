@@ -22,8 +22,9 @@ Traditional workflows with mmWave Studio are limited to file-based offline proce
 <p align="center">
 <img width="439" height="481" alt="image" src="https://github.com/user-attachments/assets/2c6f995e-a21a-4bd3-afcd-7a9498e2cb59" />
 <img width="945" height="389" alt="image" src="https://github.com/user-attachments/assets/923b5ef4-98da-49f8-ac35-691a834037b4" />
-<img width="945" height="327" alt="image" src="https://github.com/user-attachments/assets/e9825a6d-4cbd-4cdb-b713-87bcc49202f1" />
-<img width="897" height="298" alt="image" src="https://github.com/user-attachments/assets/1959800e-8df3-4cbf-89b2-d3964cfb17b8" />
+<img width="944" height="314" alt="image" src="https://github.com/user-attachments/assets/6a8761e8-97fb-4f65-acf4-3aaa42ab5cca" />
+
+
 </p>
 
 ## 🛠 Expected Hardware Compatibility
