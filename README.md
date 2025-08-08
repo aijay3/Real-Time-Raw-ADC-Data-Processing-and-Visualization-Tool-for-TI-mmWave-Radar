@@ -622,10 +622,9 @@ The Range-Angle mode provides a 2D visualization of the signal power as a functi
   - Monitor memory usage with Task Manager
   - Consider system upgrade if persistent
 
-### Visual Troubleshooting Flowchart
 
 For any other problems, go through the documents folder which contains the user guides and other documents related to troubleshooting.
 
----
+
 
 
